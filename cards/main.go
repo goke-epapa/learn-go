@@ -5,8 +5,15 @@ import (
 )
 
 func main() {
-	card := newCard()
-	fmt.Println(card)
+	cards := []string{newCard(), newCard(), "Ace of diamonds"}
+
+	// Append does not modify a slice, it only creates a new slice
+	// Slices are immutable
+	cards = append(cards, "Six of spades")
+
+	for i, card := range cards {
+		fmt.Println(i, card)
+	}
 }
 
 func newCard() string {
