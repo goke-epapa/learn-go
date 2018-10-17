@@ -7,5 +7,9 @@ func main() {
 	// Slices are immutable
 	cards = append(cards, "Six of spades")
 
-	cards.print()
+	hand, remainingDeck := deal(cards, 5)
+
+	hand.print()
+
+	remainingDeck.print()
 }
