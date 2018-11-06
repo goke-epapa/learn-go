@@ -4,29 +4,26 @@ import (
 	"fmt"
 )
 
+type contactInfo struct {
+	email   string
+	zipCode int
+}
+
 type person struct {
 	firstName string
 	lastName  string
+	contact   contactInfo
 }
 
 func main() {
-	// Using Order of fields
-	alex := person{"Alex", "Anderson"}
+	jim := person{
+		firstName: "Jim",
+		lastName:  "Party",
+		contact: contactInfo{
+			email:   "jim@example.com",
+			zipCode: 94000,
+		},
+	}
 
-	// Listing all the fields
-	goke := person{firstName: "Goke", lastName: "Obasa"}
-
-	// john initialised to a zero value
-	var john person
-
-	fmt.Println(alex)
-	fmt.Println(goke)
-	fmt.Println(john)
-
-	// updating structs
-	alex.firstName = "Alexander"
-	alex.lastName = "Cleaopatra"
-
-	// Formatting output
-	fmt.Printf("%+v", alex)
+	fmt.Printf("%+v", jim)
 }
