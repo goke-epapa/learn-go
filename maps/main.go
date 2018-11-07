@@ -26,4 +26,12 @@ func main() {
 	// deleting values in maps
 	delete(colours, "red")
 	fmt.Println(colours)
+
+	printMap(someColours)
+}
+
+func printMap(m map[string]string) {
+	for colour, hex := range m {
+		fmt.Printf("Hex code for %s is %s", colour, hex)
+	}
 }
