@@ -2,9 +2,12 @@ package main
 
 import (
 	"fmt"
+	"io"
 	"net/http"
 	"os"
 )
+
+type logWriter struct{}
 
 func main() {
 	resp, err := http.Get("https://google.com")
@@ -14,14 +17,14 @@ func main() {
 		os.Exit(1)
 	}
 
-	// byte slice with 99999 elements
-	// ensure the size of the byte slice is large enough
-	// read function doesn't resize byte slice
-	bs := make([]byte, 99999)
+	lw := logWriter{}
 
-	resp.Body.Read(bs)
+	io.Copy(lw, resp.Body)
+}
 
+func (logWriter) Write(bs []byte) (int, error) {
 	fmt.Println(string(bs))
+	fmt.Println("Just wrote this many bytes: ", len(bs))
 
-	fmt.Println(resp)
+	return len(bs), nil
 }
