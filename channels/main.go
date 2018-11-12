@@ -24,6 +24,7 @@ func checkLinkStatus(link string) {
 
 	if err != nil {
 		fmt.Printf("Link %v might be down\n", link)
+		return
 	}
 
 	fmt.Printf("%v is up\n", link)
