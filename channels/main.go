@@ -15,7 +15,7 @@ func main() {
 	}
 
 	for _, link := range links {
-		checkLinkStatus(link)
+		go checkLinkStatus(link)
 	}
 }
 
