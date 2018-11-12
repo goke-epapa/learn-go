@@ -14,18 +14,25 @@ func main() {
 		"https://amazon.com",
 	}
 
+	c := make(chan string) // Creates a new channel
+
 	for _, link := range links {
-		go checkLinkStatus(link)
+		go checkLinkStatus(link, c) // Create a child go routine
+	}
+
+	for i := 0; i < len(links); i++ {
+		fmt.Println(<-c)
 	}
 }
 
-func checkLinkStatus(link string) {
+func checkLinkStatus(link string, c chan string) {
 	_, err := http.Get(link)
 
 	if err != nil {
-		fmt.Printf("Link %v might be down\n", link)
+		fmt.Println("Test")
+		c <- "Link " + link + " might be down"
 		return
 	}
 
-	fmt.Printf("%v is up\n", link)
+	c <- link + " is up"
 }
