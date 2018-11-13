@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 	"net/http"
+	"time"
 )
 
 func main() {
@@ -20,8 +21,11 @@ func main() {
 		go checkLinkStatus(link, c) // Create a child go routine
 	}
 
-	for { // Forever loop
-		go checkLinkStatus(<-c, c)
+	for l := range c {
+		go func() {
+			time.Sleep(5 * time.Second)
+			checkLinkStatus(l, c)
+		}()
 	}
 }
 
